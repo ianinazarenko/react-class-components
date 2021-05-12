@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Ninjas from './Ninjas'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = { name: 'Ruy', belt: 'red' }
+
+  componentDidMount() {
+    console.log('component did mount')
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('component did update')
+    console.log(prevState, this.state)
+  }
+
+  render() {
+    console.log('rendered')
+    return (
+      <div>
+        <button onClick={() => this.setState({ name: 'Tory', belt: 'green' })}>
+          click me
+        </button>
+        {/* {this.state.ninjas.map((ninja, index) => (
+          <Ninjas name={ninja.name} belt={ninja.belt} key={index} />
+        ))} */}
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
