@@ -1,28 +1,36 @@
 import React, { Component } from 'react'
-import Ninjas from './Ninjas'
+import AddTodo from './AddTodo'
+import Todos from './Todos'
 
 class App extends Component {
-  state = { name: 'Ruy', belt: 'red' }
-
-  componentDidMount() {
-    console.log('component did mount')
+  state = {
+    todos: [
+      { id: 1, content: 'Buy some milk' },
+      { id: 2, content: 'Play mario cart' },
+    ],
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log('component did update')
-    console.log(prevState, this.state)
+  deleteItem = (id) => {
+    this.setState(() => ({
+      todos: this.state.todos.filter((todo) => todo.id !== id),
+    }))
+  }
+
+  addTodo = (todo) => {
+    const newTodo = { ...todo, id: Date.now() }
+    this.setState({ todos: [...this.state.todos, newTodo] })
+  }
+
+  componentDidUpdate() {
+    console.log(this.state)
   }
 
   render() {
-    console.log('rendered')
     return (
-      <div>
-        <button onClick={() => this.setState({ name: 'Tory', belt: 'green' })}>
-          click me
-        </button>
-        {/* {this.state.ninjas.map((ninja, index) => (
-          <Ninjas name={ninja.name} belt={ninja.belt} key={index} />
-        ))} */}
+      <div className='todo-app container'>
+        <h1 className='center blue-text'>Todo's</h1>
+        <Todos todos={this.state.todos} deleteItem={this.deleteItem} />
+        <AddTodo addTodo={this.addTodo} />
       </div>
     )
   }
